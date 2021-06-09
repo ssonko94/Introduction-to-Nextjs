@@ -1,3 +1,4 @@
+import Head from "next/head";
 import { MongoClient } from "mongodb";
 
 import MeetupList from "../components/meetups/MeetupList";
@@ -20,7 +21,15 @@ import MeetupList from "../components/meetups/MeetupList";
 // ];
 
 function HomePage(props) {
-  return <MeetupList meetups={props.meetups} />;
+  return (
+    <>
+      <Head>
+        <title>Nextjs Meetups</title>
+        <meta name="description" content="Browse a list of huge react meetups for fun!"/>
+      </Head>
+      <MeetupList meetups={props.meetups} />
+    </>
+  );
 }
 
 // export async function getServerSideProps(context) {
@@ -50,7 +59,7 @@ export async function getStaticProps() {
   client.close();
   return {
     props: {
-      meetups: meetups.map(meeetup => ({
+      meetups: meetups.map((meeetup) => ({
         title: meeetup.title,
         address: meeetup.address,
         image: meeetup.image,
